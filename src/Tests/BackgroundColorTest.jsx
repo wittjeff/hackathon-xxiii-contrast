@@ -5,7 +5,7 @@ class BackgroundColorTest extends React.Component {
     super(props);
 
     this.state = {
-      results: [],
+      results: undefined,
     };
   }
 
@@ -15,6 +15,8 @@ class BackgroundColorTest extends React.Component {
     return (
       <React.Fragment>
         <h1>{`BackgroundColorTest for ${user}`}</h1>
+        <button>Black</button>
+        <button>White</button>
       </React.Fragment>
     );
   }

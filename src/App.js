@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import BackgroundColorTest from './Tests/BackgroundColorTest.jsx';
+import BackgroundColorTest from './Tests/BackgroundColorTest';
 
 class App extends React.Component {
   constructor(props) {
