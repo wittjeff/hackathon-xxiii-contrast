@@ -3,6 +3,8 @@ import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import BackgroundColorTest from './Tests/BackgroundColorTest.jsx';
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -54,7 +56,7 @@ class App extends React.Component {
           </header>
         </div>
         {!user && this.getEmailCollectionForm()}
-        {user && `${user} is helping save the world`}
+        {user && <BackgroundColorTest user={user} />}
       </React.Fragment>
     );
   }
