@@ -16,7 +16,8 @@ class App extends React.Component {
     this.state = {
       user: undefined,
       currentTest: 0,
-      totalTests: 5,
+      totalColors: 5,
+      totalTests: 0,
       colorMap: [],
     };
     this.setUser = this.setUser.bind(this);
@@ -33,8 +34,8 @@ class App extends React.Component {
   }
 
   getColorMap() {
-    const { totalTests } = this.state;
-    const map = new Array(totalTests).fill('something');
+    const { totalColors } = this.state;
+    const map = new Array(totalColors).fill('something');
 
     const colors = map.reduce(accumulator => {
       const color = this.getRandomColor();
@@ -48,7 +49,7 @@ class App extends React.Component {
 
     this.setState({
       colorMap: this.shuffleArray(colors),
-      totalTests: totalTests * 2,
+      totalTests: totalColors * 2,
     });
   }
 
@@ -82,21 +83,21 @@ class App extends React.Component {
   getEmailCollectionForm() {
     return (
       <div>
-        <form onSubmit={this.setUser}>
-          <div className="form-group d-flex">
-            <label htmlFor="user-email">Email address</label>
+        <form className="form-inline" onSubmit={this.setUser}>
+          <div className="form-group d-flex w-100">
+            <label htmlFor="user-email" className="mr-4">Email address</label>
             <input
               type="email"
-              className="form-control"
+              className="form-control w-50"
               id="user-email"
               aria-describedby="emailHelp"
               placeholder="Enter email"
               ref={this.emailInput}
             />
-            <button type="submit" className="btn btn-primary">Submit</button>
+            <button type="submit" className="btn btn-primary ml-4">Submit</button>
           </div>
-          <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
         </form>
+        <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
       </div>
     );
   }
@@ -106,7 +107,7 @@ class App extends React.Component {
 
     if (number > this.state.totalTests) {    
       return (
-        <h2>Test completed</h2>
+        <h2>Test completed, thank you.</h2>
       );
     }
 
@@ -120,18 +121,33 @@ class App extends React.Component {
     );
   }
 
+  getTitle() {
+    const {
+      user,
+      currentTest,
+      totalTests,
+    } = this.state;
+
+    if (currentTest == 0) {
+      return 'landing page';
+    } else if (currentTest > totalTests) {
+      return 'test completed';
+    }
+
+    return `test ${currentTest}`; 
+  }
+
   render() {
     const {
       user,
       currentTest,
       totalTests,
     } = this.state;
-    const pageType = user ? 'landing page' : 'test';
 
     return (
       <React.Fragment>
         <Helmet>
-          <title>{`Hackathon XXIII: Contrast Study | ${pageType}`}</title>
+          <title>{`Hackathon XXIII: Contrast Study | ${this.getTitle()}`}</title>
         </Helmet>
         <div className="app">
           <header className="app-header">
@@ -141,7 +157,7 @@ class App extends React.Component {
             </div>
           </header>
         </div>
-        <div className="container" aria-live="polite">
+        <div className="container my-4" aria-live="polite">
           {!user && this.getEmailCollectionForm()}
           {currentTest > 0 && currentTest <= totalTests &&
               <h2 className="h2">{`${currentTest}/${totalTests}`}</h2>
