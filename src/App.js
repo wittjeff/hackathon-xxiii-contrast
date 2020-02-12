@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Helmet } from 'react-helmet';
 import { SHA3 } from 'sha3';
+import axios from 'axios';
 
 import BackgroundColorTest from './Tests/BackgroundColorTest';
 
@@ -37,16 +38,11 @@ class App extends React.Component {
 
   handleTestSubmission(value) {
     console.log(`handleTestSubmission: ${value}`);
-    const fetching = fetch("http://localhost:5000/api")
-      fetching.then((result) => {
-        console.log('fetched')
-        console.log(result.json);
-        this.setState({
-          currentTest: this.state.currentTest + 1,
-        })
-      return result.json()
-      }
-    ).then((json) => console.log(json));
+    axios.post("http://localhost:5000/api", {
+      user: this.state.user,
+      test: this.state.currentTest,
+      result: value
+    }).then((response) => console.log(response));
   }
 
   getEmailCollectionForm() {
