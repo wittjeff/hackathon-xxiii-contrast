@@ -16,7 +16,7 @@ class App extends React.Component {
     this.state = {
       user: undefined,
       currentTest: 0,
-      totalTests: 3,
+      totalTests: 10,
     };
     this.setUser = this.setUser.bind(this);
     this.handleTestSubmission = this.handleTestSubmission.bind(this);
@@ -98,7 +98,7 @@ class App extends React.Component {
             </div>
           </header>
         </div>
-        <div className="container">
+        <div className="container" aria-live="polite">
           {!user && this.getEmailCollectionForm()}
           {currentTest > 0 && currentTest <= totalTests &&
               <h2 className="h2">{`${currentTest}/${totalTests}`}</h2>
