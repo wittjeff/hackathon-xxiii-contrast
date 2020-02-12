@@ -107,7 +107,7 @@ class App extends React.Component {
               <button type="submit" className="btn btn-primary ml-4">Submit</button>
             </div>
           </form>
-          <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+          <small id="emailHelp" className="form-text text-muted">We use your email address as a unique identifier, but we don’t store it in plain text. We will never share your email with anyone else.</small>
         </div>
         <div>
           <p>For this set of tasks, we are asking you to rate the relative ease of reading a single phrase. Only the text foreground and background colors change.</p>
