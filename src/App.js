@@ -4,6 +4,8 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import BackgroundColorTest from './Tests/BackgroundColorTest';
+import { SHA3 } from 'sha3';
+ 
 
 class App extends React.Component {
   constructor(props) {
@@ -13,13 +15,16 @@ class App extends React.Component {
       user: undefined,
     };
     this.setUser = this.setUser.bind(this);
+    this.emailInput = React.createRef();
   }
 
-  setUser() {
-    const email = document.getElementById('user-email').value;
+  setUser(event) {
+    event.preventDefault();
+    const email = this.emailInput.current.value;
+    const hash = new SHA3(224).update(email).digest('hex');
 
     this.setState({
-      user: email,
+      user: hash,
     });
   }
 
@@ -35,6 +40,7 @@ class App extends React.Component {
               id="user-email"
               aria-describedby="emailHelp"
               placeholder="Enter email"
+              ref={this.emailInput}
             />
             <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
           </div>
