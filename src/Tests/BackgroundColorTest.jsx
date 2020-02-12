@@ -25,6 +25,7 @@ class BackgroundColorTest extends React.Component {
       userRating: value,
       backgroundColor: background,
       foregroundColor: foreground,
+      testModule: 'BackgroundColorTest',
     });
   }
 
