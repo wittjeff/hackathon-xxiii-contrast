@@ -4,6 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Tooltip from 'rc-tooltip';
 import Slider from 'rc-slider';
+import Button from "react-bootstrap/Button";
 
 class SliderTest extends React.Component {
 
@@ -12,7 +13,20 @@ class SliderTest extends React.Component {
 
     this.state = {
       sliderVal: 0,
+      mainColor: 'rgb(0,0,0)',
     };
+    this.setColorState = this.setColorState.bind(this);
+
+  }
+
+  setColorState()  {
+    console.log('in set color state');
+    console.log(this);
+    const x = Math.floor(Math.random() * 256);
+    const y = Math.floor(Math.random() * 256);
+    const z = Math.floor(Math.random() * 256);
+    const bgColor = "rgb(" + x + "," + y + "," + z + ")";
+    this.setState({mainColor: bgColor})
   }
 
   render() {
@@ -37,7 +51,10 @@ class SliderTest extends React.Component {
         return `#FFFFFF`
       }
       return `#000000`
-    }
+    };
+
+
+
 
     const handle = (props) => {
       const {
@@ -64,9 +81,13 @@ class SliderTest extends React.Component {
       color: colorFromValue(this.state.sliderVal)
     }
 
+    const mainStyle = {
+      color: this.state.mainColor,
+    }
+
     return (
       <React.Fragment>
-        <div >
+        <div style={mainStyle}>
           WORD
         </div>
         <Slider min={0} max={16} defaultValue={0} handle={handle}
@@ -74,7 +95,11 @@ class SliderTest extends React.Component {
       <div style={grayStyle}>
       WORD
       </div>
+      <Button onClick={this.setColorState}>
+      submit
+      </Button>
       </React.Fragment>
+
     )
   }
 }
