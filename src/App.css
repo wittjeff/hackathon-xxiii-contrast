@@ -10,3 +10,8 @@
 .btn-label {
   font-size: 1.75rem;
 }
+
+.test-module  .test-text {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+}
