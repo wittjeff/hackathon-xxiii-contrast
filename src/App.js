@@ -1,10 +1,12 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+
+import { Helmet } from 'react-helmet';
+import { SHA3 } from 'sha3';
 
 import BackgroundColorTest from './Tests/BackgroundColorTest';
-import { SHA3 } from 'sha3';
+
+import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
  
 
 class App extends React.Component {
@@ -13,8 +15,11 @@ class App extends React.Component {
 
     this.state = {
       user: undefined,
+      currentTest: 0,
+      totalTests: 3,
     };
     this.setUser = this.setUser.bind(this);
+    this.handleTestSubmission = this.handleTestSubmission.bind(this);
     this.emailInput = React.createRef();
   }
 
@@ -25,14 +30,22 @@ class App extends React.Component {
 
     this.setState({
       user: hash,
+      currentTest: 1,
     });
+  }
+
+  handleTestSubmission(value) {
+    console.log(`handleTestSubmission: ${value}`);
+    this.setState({
+      currentTest: this.state.currentTest + 1,
+    })
   }
 
   getEmailCollectionForm() {
     return (
       <div>
         <form onSubmit={this.setUser}>
-          <div className="form-group">
+          <div className="form-group d-flex">
             <label htmlFor="user-email">Email address</label>
             <input
               type="email"
@@ -42,27 +55,56 @@ class App extends React.Component {
               placeholder="Enter email"
               ref={this.emailInput}
             />
-            <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+            <button type="submit" className="btn btn-primary">Submit</button>
           </div>
-          <button type="submit" className="btn btn-primary">Submit</button>
+          <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
         </form>
       </div>
     );
   }
 
+  getTest(number) {
+    if (number > this.state.totalTests) {    
+      return (
+        <h2>Test completed</h2>
+      );
+    }
+
+    return (
+      <BackgroundColorTest
+        onSubmit={this.handleTestSubmission}
+      />
+    );
+  }
+
   render() {
-    const { user } = this.state;
+    const {
+      user,
+      currentTest,
+      totalTests,
+    } = this.state;
+    const pageType = user ? 'landing page' : 'test';
 
     return (
       <React.Fragment>
-        <div className="App">
-          <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <h1>Make the world better</h1>
+        <Helmet>
+          <title>{`Hackathon XXIII: Contrast Study | ${pageType}`}</title>
+        </Helmet>
+        <div className="app">
+          <header className="app-header">
+            <div className="container">
+              <h1>Make the world better</h1>
+              <p>Words about what this site is and why people should invest their time to help improve the world.</p>
+            </div>
           </header>
         </div>
-        {!user && this.getEmailCollectionForm()}
-        {user && <BackgroundColorTest user={user} />}
+        <div className="container">
+          {!user && this.getEmailCollectionForm()}
+          {currentTest > 0 && currentTest <= totalTests &&
+              <h2 className="h2">{`${currentTest}/${totalTests}`}</h2>
+          }
+          {user && this.getTest(currentTest)}
+        </div>
       </React.Fragment>
     );
   }
