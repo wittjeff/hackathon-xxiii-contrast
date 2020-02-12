@@ -21,6 +21,7 @@ class App extends React.Component {
     this.setUser = this.setUser.bind(this);
     this.handleTestSubmission = this.handleTestSubmission.bind(this);
     this.emailInput = React.createRef();
+
   }
 
   setUser(event) {
@@ -36,9 +37,16 @@ class App extends React.Component {
 
   handleTestSubmission(value) {
     console.log(`handleTestSubmission: ${value}`);
-    this.setState({
-      currentTest: this.state.currentTest + 1,
-    })
+    const fetching = fetch("http://localhost:5000/api")
+      fetching.then((result) => {
+        console.log('fetched')
+        console.log(result.json);
+        this.setState({
+          currentTest: this.state.currentTest + 1,
+        })
+      return result.json()
+      }
+    ).then((json) => console.log(json));
   }
 
   getEmailCollectionForm() {
