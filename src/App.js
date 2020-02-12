@@ -16,11 +16,58 @@ class App extends React.Component {
     this.state = {
       user: undefined,
       currentTest: 0,
-      totalTests: 10,
+      totalTests: 5,
+      colorMap: [],
     };
     this.setUser = this.setUser.bind(this);
     this.handleTestSubmission = this.handleTestSubmission.bind(this);
     this.emailInput = React.createRef();
+  }
+
+  componentDidMount() {
+    this.getColorMap();
+  }
+
+  getRandomColor() {
+    return '#'+Math.floor(Math.random()*16777215).toString(16);
+  }
+
+  getColorPair() {
+    const color = this.getRandomColor();
+
+    return [
+      { background: color, foreground: 'white' },
+      { background: color, foreground: 'black' },
+    ];
+  }
+
+  getColorMap() {
+    const { totalTests } = this.state;
+    const map = new Array(totalTests).fill('something');
+
+    const colors = map.reduce(accumulator => {
+      const color = this.getRandomColor();
+      accumulator.push(
+        { background: color, foreground: 'white' },
+        { background: color, foreground: 'black' },
+      );
+
+      return accumulator;
+    }, []);
+
+    this.setState({
+      colorMap: this.shuffleArray(colors),
+      totalTests: totalTests * 2,
+    });
+  }
+
+  shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+
+    return array;
   }
 
   setUser(event) {
@@ -64,14 +111,19 @@ class App extends React.Component {
   }
 
   getTest(number) {
+    const { colorMap } = this.state;
+
     if (number > this.state.totalTests) {    
       return (
         <h2>Test completed</h2>
       );
     }
 
+    const colorChoice = colorMap[number -1];
+
     return (
       <BackgroundColorTest
+        {...colorChoice}
         onSubmit={this.handleTestSubmission}
       />
     );

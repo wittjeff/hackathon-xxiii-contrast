@@ -24,16 +24,16 @@ class BackgroundColorTest extends React.Component {
   }
 
   render() {
-    const randomColor = '#'+Math.floor(Math.random()*16777215).toString(16);
+    const { background, foreground } = this.props;
 
     return (
       <React.Fragment>
         <div className="d-flex">
           <div
             className="sample w-50 border d-flex align-items-center justify-content-center"
-            style={{backgroundColor: randomColor}}
+            style={{backgroundColor: background}}
           >
-            <div className="">Words</div>
+            <div style={{color: foreground}}>Words</div>
           </div>
 
           <div className="d-flex flex-column pl-4">
