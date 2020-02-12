@@ -74,7 +74,7 @@ class App extends React.Component {
   }
 
   handleTestSubmission(value) {
-    console.log('handleTestSubmission:', value);
+    console.log('handleTestSubmission:', {...value, user: this.state.user });
     this.setState({
       currentTest: this.state.currentTest + 1,
     })
@@ -112,9 +112,10 @@ class App extends React.Component {
     }
 
     const colorChoice = colorMap[number -1];
+    const SelectedTest = BackgroundColorTest;
 
     return (
-      <BackgroundColorTest
+      <SelectedTest
         {...colorChoice}
         onSubmit={this.handleTestSubmission}
       />
@@ -123,12 +124,11 @@ class App extends React.Component {
 
   getTitle() {
     const {
-      user,
       currentTest,
       totalTests,
     } = this.state;
 
-    if (currentTest == 0) {
+    if (currentTest === 0) {
       return 'landing page';
     } else if (currentTest > totalTests) {
       return 'test completed';
