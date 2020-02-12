@@ -19,8 +19,13 @@ class BackgroundColorTest extends React.Component {
   }
 
   submitFeedback(value) {
-    console.log(`selected ${value}`);
-    this.props.onSubmit(value);
+    const { background, foreground } = this.props;
+
+    this.props.onSubmit({
+      userRating: value,
+      backgroundColor: background,
+      foregroundColor: foreground,
+    });
   }
 
   render() {

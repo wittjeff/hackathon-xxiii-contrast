@@ -32,15 +32,6 @@ class App extends React.Component {
     return '#'+Math.floor(Math.random()*16777215).toString(16);
   }
 
-  getColorPair() {
-    const color = this.getRandomColor();
-
-    return [
-      { background: color, foreground: 'white' },
-      { background: color, foreground: 'black' },
-    ];
-  }
-
   getColorMap() {
     const { totalTests } = this.state;
     const map = new Array(totalTests).fill('something');
@@ -82,7 +73,7 @@ class App extends React.Component {
   }
 
   handleTestSubmission(value) {
-    console.log(`handleTestSubmission: ${value}`);
+    console.log('handleTestSubmission:', value);
     this.setState({
       currentTest: this.state.currentTest + 1,
     })
