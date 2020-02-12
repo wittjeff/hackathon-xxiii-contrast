@@ -3,6 +3,15 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { SHA3 } from 'sha3';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+  faGrinBeam,
+  faSmile,
+  faMeh,
+  faAngry,
+  faFrown,
+} from '@fortawesome/free-regular-svg-icons'
+
 import BackgroundColorTest from './Tests/BackgroundColorTest';
 
 import './App.css';
@@ -16,7 +25,7 @@ class App extends React.Component {
     this.state = {
       user: undefined,
       currentTest: 0,
-      totalColors: 5,
+      totalColors: 50,
       totalTests: 0,
       colorMap: [],
     };
@@ -55,8 +64,8 @@ class App extends React.Component {
 
   shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
     }
 
     return array;
@@ -82,23 +91,29 @@ class App extends React.Component {
 
   getEmailCollectionForm() {
     return (
-      <div>
-        <form className="form-inline" onSubmit={this.setUser}>
-          <div className="form-group d-flex w-100">
-            <label htmlFor="user-email" className="mr-4">Email address</label>
-            <input
-              type="email"
-              className="form-control w-50"
-              id="user-email"
-              aria-describedby="emailHelp"
-              placeholder="Enter email"
-              ref={this.emailInput}
-            />
-            <button type="submit" className="btn btn-primary ml-4">Submit</button>
-          </div>
-        </form>
-        <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
-      </div>
+      <React.Fragment>
+        <div className="mb-4">
+          <form className="form-inline" onSubmit={this.setUser}>
+            <div className="form-group d-flex w-100">
+              <label htmlFor="user-email" className="mr-4">Email address</label>
+              <input
+                type="email"
+                className="form-control w-50"
+                id="user-email"
+                aria-describedby="emailHelp"
+                placeholder="Enter email"
+                ref={this.emailInput}
+              />
+              <button type="submit" className="btn btn-primary ml-4">Submit</button>
+            </div>
+          </form>
+          <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div>
+          <p>For this set of tasks, we are asking you to rate the relative ease of reading a single phrase. Only the text foreground and background colors change.</p>
+          <p>In the future we may include different fonts, weights, sizes, and text samples, which could affect subjective contrast ratings considerably. But in this experiment please just rate the text sample with the size and colors shown here.</p>
+        </div>
+      </React.Fragment>
     );
   }
 
@@ -143,6 +158,7 @@ class App extends React.Component {
       currentTest,
       totalTests,
     } = this.state;
+    const testIsRunning = currentTest > 0 && currentTest <= totalTests;
 
     return (
       <React.Fragment>
@@ -152,17 +168,46 @@ class App extends React.Component {
         <div className="app">
           <header className="app-header">
             <div className="container">
-              <h1>Make the world better</h1>
-              <p>Words about what this site is and why people should invest their time to help improve the world.</p>
+              <h1>Color contrast feedback</h1>
+              <p>We’re attempting to model perceived color contrast, particular as it affects text legibility. There are a number of possible ways to approach this, and this set of tasks is only one of several test methodologies that is being considered.</p>
             </div>
           </header>
         </div>
         <div className="container my-4" aria-live="polite">
           {!user && this.getEmailCollectionForm()}
-          {currentTest > 0 && currentTest <= totalTests &&
-              <h2 className="h2">{`${currentTest}/${totalTests}`}</h2>
-          }
+          {testIsRunning && <h2 className="h2">{`${currentTest}/${totalTests}`}</h2>}
           {user && this.getTest(currentTest)}
+          {testIsRunning &&     
+            <table className="table my-4">
+              <tbody>                
+                <tr>
+                  <td><FontAwesomeIcon icon={faGrinBeam} size="2x" /></td>
+                  <td>Strong</td>
+                  <td>Very easily legible</td>
+                </tr>
+                <tr>
+                  <td><FontAwesomeIcon icon={faSmile} size="2x" /></td>
+                  <td>Comfortable</td>
+                  <td>You could read this quite easily, with no real slow-down</td>
+                </tr>
+                <tr>
+                  <td><FontAwesomeIcon icon={faMeh} size="2x" /></td>
+                  <td>Readable with effort</td>
+                  <td>The additional effort may be subtle. Note that this slow-down is sometimes intended in everyday designs to de-emphasize secondary text.</td>
+                </tr>
+                <tr>
+                  <td><FontAwesomeIcon icon={faFrown} size="2x" /></td>
+                  <td>Too much effort</td>
+                  <td>You feel you shouldn’t have to work this hard to read anything. De-emphasis gone too far.</td>
+                </tr>
+                <tr>
+                  <td><FontAwesomeIcon icon={faAngry} size="2x" /></td>
+                  <td>Illegible</td>
+                  <td>Really can’t read it at all, or fear you might not get parts of it</td>
+                </tr>
+              </tbody>
+            </table>
+          }
         </div>
       </React.Fragment>
     );
