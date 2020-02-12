@@ -39,7 +39,18 @@ class App extends React.Component {
   }
 
   getRandomColor() {
-    return '#'+Math.floor(Math.random()*16777215).toString(16);
+    // The available hex options
+    let hex = ['a', 'b', 'c', 'd', 'e', 'f', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+    const color = ['#'];
+
+    // Create a six-digit hex color
+    for (let i = 0; i < 6; i++) {
+      let shuffledArray = this.shuffleArray(hex);
+      color.push(shuffledArray[0]);
+    }
+
+    // Return the color string
+    return color.join('');
   }
 
   getColorMap() {
