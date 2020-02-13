@@ -4,15 +4,6 @@ import { Helmet } from 'react-helmet';
 import { SHA3 } from 'sha3';
 import axios from 'axios';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faGrinBeam,
-  faSmile,
-  faMeh,
-  faAngry,
-  faFrown,
-} from '@fortawesome/free-regular-svg-icons'
-
 import BackgroundColorTest from './Tests/BackgroundColorTest';
 
 import './App.css';
