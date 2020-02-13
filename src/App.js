@@ -26,7 +26,7 @@ class App extends React.Component {
     this.state = {
       user: undefined,
       currentTest: 0,
-      totalColors: 50,
+      totalColors: 5,
       totalTests: 0,
       colorMap: [],
     };
@@ -35,6 +35,7 @@ class App extends React.Component {
     this.hexToRgb = this.hexToRgb.bind(this);
 
     this.emailInput = React.createRef();
+    this.testCounter = React.createRef();
   }
 
   componentDidMount() {
@@ -140,7 +141,9 @@ class App extends React.Component {
 
     this.setState({
       currentTest: this.state.currentTest + 1,
-    })
+    });
+
+    this.testCounter.current.focus();
   }
 
   getEmailCollectionForm() {
@@ -214,6 +217,12 @@ class App extends React.Component {
     } = this.state;
     const testIsRunning = currentTest > 0 && currentTest <= totalTests;
 
+    // TODO: better focus management for inital test load
+    if (currentTest === 1) {
+      setTimeout(() =>
+        this.testCounter.current.focus(), 1000);
+    }
+
     return (
       <React.Fragment>
         <Helmet>
@@ -229,7 +238,14 @@ class App extends React.Component {
         </div>
         <div className="container my-4" aria-live="polite">
           {!user && this.getEmailCollectionForm()}
-          {testIsRunning && <h2 className="h2">{`${currentTest}/${totalTests}`}</h2>}
+          {testIsRunning &&
+            <h2
+              className="h2 d-inline-block"
+              tabIndex="-1"
+              ref={this.testCounter}
+            >{`${currentTest}/${totalTests}`}
+            </h2>
+          }
           {user && this.getTest(currentTest)}
           {testIsRunning &&     
             <table className="table my-4">
