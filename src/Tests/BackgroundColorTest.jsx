@@ -43,35 +43,35 @@ class BackgroundColorTest extends React.Component {
 
         <div className="d-flex flex-column pl-4">
           <button
-            className="btn btn-primary mb-2 text-left d-flex align-items-center"
+            className="btn btn-dark mb-2 text-left d-flex align-items-center"
             onClick={() => this.submitFeedback(5) }
           >
             <FontAwesomeIcon icon={faGrinBeam} size="3x" />
             <div className="btn-label ml-4">Strong</div>
           </button>
           <button
-            className="btn btn-primary mb-2 text-left d-flex align-items-center"
+            className="btn btn-dark mb-2 text-left d-flex align-items-center"
             onClick={() => this.submitFeedback(4) }
           >
             <FontAwesomeIcon icon={faSmile} size="3x" />
             <div className="btn-label ml-4">Comfortable</div>
           </button>
           <button
-            className="btn btn-primary mb-2 text-left d-flex align-items-center"
+            className="btn btn-dark mb-2 text-left d-flex align-items-center"
             onClick={() => this.submitFeedback(3) }
           >
             <FontAwesomeIcon icon={faMeh} size="3x" />
             <div className="btn-label ml-4">Readable with effort</div>
           </button>
           <button
-            className="btn btn-primary mb-2 text-left d-flex align-items-center"
+            className="btn btn-dark mb-2 text-left d-flex align-items-center"
             onClick={() => this.submitFeedback(2) }
           >
             <FontAwesomeIcon icon={faFrown} size="3x" />
             <div className="btn-label ml-4">Too much effort</div>
           </button>
           <button
-            className="btn btn-primary text-left d-flex align-items-center"
+            className="btn btn-dark text-left d-flex align-items-center"
             onClick={() => this.submitFeedback(1) }
           >
             <FontAwesomeIcon icon={faAngry} size="3x" />
