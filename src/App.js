@@ -24,7 +24,7 @@ class App extends React.Component {
     this.setUser = this.setUser.bind(this);
     this.handleTestSubmission = this.handleTestSubmission.bind(this);
     this.hexToRgb = this.hexToRgb.bind(this);
-
+    this.version = 0
     this.emailInput = React.createRef();
     this.testCounter = React.createRef();
   }
@@ -90,7 +90,6 @@ class App extends React.Component {
 
   //thank you StackOverflow
   hexToRgb(hex) {
-    console.log({hex});
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     return result ? {
       r: parseInt(result[1], 16),
@@ -117,7 +116,8 @@ class App extends React.Component {
       b: foregroundBlue,
     } = this.hexToRgb( foregroundColor === 'black' ? '#000000' : '#FFFFFF')
 
-    axios.post("https://hackathon-xxiii-contrast-back.herokuapp.com/api", {
+    const dbUrl = "https://hackathon-xxiii-contrast-back.herokuapp.com/api";
+    axios.post(dbUrl, {
       user: this.state.user,
       test: this.state.currentTest,
       testModule,
@@ -128,7 +128,23 @@ class App extends React.Component {
       foregroundGreen,
       foregroundBlue,
       userRating,
+      versionHash: new SHA3(224).update(`version_${this.version}`).digest('hex'),
     }).then((response) => console.log(response));
+
+ /* console.log({
+    user: this.state.user,
+    test: this.state.currentTest,
+    testModule,
+    backgroundRed,
+    backgroundGreen,
+    backgroundBlue,
+    foregroundRed,
+    foregroundGreen,
+    foregroundBlue,
+    userRating,
+    versionHash: new SHA3(224).update(`version_${this.version}`).digest('hex')
+  ,
+  });*/
 
     this.setState({
       currentTest: this.state.currentTest + 1,
