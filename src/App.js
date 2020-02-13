@@ -247,37 +247,6 @@ class App extends React.Component {
             </h2>
           }
           {user && this.getTest(currentTest)}
-          {testIsRunning &&     
-            <table className="table my-4">
-              <tbody>                
-                <tr>
-                  <td><FontAwesomeIcon icon={faGrinBeam} size="2x" /></td>
-                  <td>Strong</td>
-                  <td>Very easily legible</td>
-                </tr>
-                <tr>
-                  <td><FontAwesomeIcon icon={faSmile} size="2x" /></td>
-                  <td>Comfortable</td>
-                  <td>You could read this quite easily, with no real slow-down</td>
-                </tr>
-                <tr>
-                  <td><FontAwesomeIcon icon={faMeh} size="2x" /></td>
-                  <td>Readable with effort</td>
-                  <td>The additional effort may be subtle. Note that this slow-down is sometimes intended in everyday designs to de-emphasize secondary text.</td>
-                </tr>
-                <tr>
-                  <td><FontAwesomeIcon icon={faFrown} size="2x" /></td>
-                  <td>Too much effort</td>
-                  <td>You feel you shouldn’t have to work this hard to read anything. De-emphasis gone too far.</td>
-                </tr>
-                <tr>
-                  <td><FontAwesomeIcon icon={faAngry} size="2x" /></td>
-                  <td>Illegible</td>
-                  <td>Really can’t read it at all, or fear you might not get parts of it</td>
-                </tr>
-              </tbody>
-            </table>
-          }
         </div>
       </React.Fragment>
     );
