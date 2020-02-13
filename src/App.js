@@ -108,14 +108,13 @@ class App extends React.Component {
   }
 
   handleTestSubmission(value) {
-    console.log(`handleTestSubmission: ${value}`);
     const {
       backgroundColor,
       foregroundColor,
       testModule,
       userRating
     } = value;
- /*   const {
+    const {
       r: backgroundRed,
       g: backgroundGreen,
       b: backgroundBlue,
@@ -126,8 +125,8 @@ class App extends React.Component {
       b: foregroundBlue,
     } = this.hexToRgb( foregroundColor === 'black' ? '#000000' : '#FFFFFF')
 
-    axios.post("http://localhost:5000/api", {
-      user,
+    axios.post("https://hackathon-xxiii-contrast-back.herokuapp.com/api", {
+      user: this.state.user,
       test: this.state.currentTest,
       testModule,
       backgroundRed,
@@ -137,7 +136,7 @@ class App extends React.Component {
       foregroundGreen,
       foregroundBlue,
       userRating,
-    }).then((response) => console.log(response));*/
+    }).then((response) => console.log(response));
 
     this.setState({
       currentTest: this.state.currentTest + 1,
