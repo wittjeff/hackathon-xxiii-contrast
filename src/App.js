@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Helmet } from 'react-helmet';
 import { SHA3 } from 'sha3';
+import axios from 'axios';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -31,6 +32,8 @@ class App extends React.Component {
     };
     this.setUser = this.setUser.bind(this);
     this.handleTestSubmission = this.handleTestSubmission.bind(this);
+    this.hexToRgb = this.hexToRgb.bind(this);
+
     this.emailInput = React.createRef();
   }
 
@@ -93,8 +96,49 @@ class App extends React.Component {
     });
   }
 
+  //thank you StackOverflow
+  hexToRgb(hex) {
+    console.log({hex});
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+      r: parseInt(result[1], 16),
+      g: parseInt(result[2], 16),
+      b: parseInt(result[3], 16)
+    } : null;
+  }
+
   handleTestSubmission(value) {
-    console.log('handleTestSubmission:', {...value, user: this.state.user });
+    console.log(`handleTestSubmission: ${value}`);
+    const {
+      backgroundColor,
+      foregroundColor,
+      testModule,
+      userRating
+    } = value;
+ /*   const {
+      r: backgroundRed,
+      g: backgroundGreen,
+      b: backgroundBlue,
+    } = this.hexToRgb(backgroundColor);
+    const {
+      r: foregroundRed,
+      g: foregroundGreen,
+      b: foregroundBlue,
+    } = this.hexToRgb( foregroundColor === 'black' ? '#000000' : '#FFFFFF')
+
+    axios.post("http://localhost:5000/api", {
+      user,
+      test: this.state.currentTest,
+      testModule,
+      backgroundRed,
+      backgroundGreen,
+      backgroundBlue,
+      foregroundRed,
+      foregroundGreen,
+      foregroundBlue,
+      userRating,
+    }).then((response) => console.log(response));*/
+
     this.setState({
       currentTest: this.state.currentTest + 1,
     })
