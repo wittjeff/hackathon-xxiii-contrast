@@ -41,43 +41,82 @@ class BackgroundColorTest extends React.Component {
           <div className="test-text font-weight-normal" style={{color: foreground}}>How legible is this text?</div>
         </div>
 
-        <div className="d-flex flex-column pl-4">
-          <button
-            className="btn btn-dark mb-2 text-left d-flex align-items-center"
-            onClick={() => this.submitFeedback(5) }
-          >
-            <FontAwesomeIcon icon={faGrinBeam} size="3x" />
-            <div className="btn-label ml-4">Strong</div>
-          </button>
-          <button
-            className="btn btn-dark mb-2 text-left d-flex align-items-center"
-            onClick={() => this.submitFeedback(4) }
-          >
-            <FontAwesomeIcon icon={faSmile} size="3x" />
-            <div className="btn-label ml-4">Comfortable</div>
-          </button>
-          <button
-            className="btn btn-dark mb-2 text-left d-flex align-items-center"
-            onClick={() => this.submitFeedback(3) }
-          >
-            <FontAwesomeIcon icon={faMeh} size="3x" />
-            <div className="btn-label ml-4">Readable with effort</div>
-          </button>
-          <button
-            className="btn btn-dark mb-2 text-left d-flex align-items-center"
-            onClick={() => this.submitFeedback(2) }
-          >
-            <FontAwesomeIcon icon={faFrown} size="3x" />
-            <div className="btn-label ml-4">Too much effort</div>
-          </button>
-          <button
-            className="btn btn-dark text-left d-flex align-items-center"
-            onClick={() => this.submitFeedback(1) }
-          >
-            <FontAwesomeIcon icon={faAngry} size="3x" />
-            <div className="btn-label ml-4">Illegible</div>
-          </button>
-        </div>
+        <table className="table table-borderless m-0">
+          <tbody>                
+            <tr>
+              <td className="px-2 pb-2 pt-0 w-50">
+                <div className="d-flex">
+                  <button
+                    className="btn btn-dark mb-2 text-left d-flex align-items-center w-100"
+                    onClick={() => this.submitFeedback(5) }
+                  >
+                    <FontAwesomeIcon icon={faGrinBeam} size="3x" />
+                    <div className="btn-label ml-4">Strong</div>
+                  </button>
+                  
+                </div>
+              </td>
+              <td className="p-0 pt-1"><div className="description">Very easily legible.</div></td>
+            </tr>
+            <tr>
+              <td className="p-2">
+                <div className="d-flex">
+                  <button
+                    className="btn btn-dark mb-2 text-left d-flex align-items-center w-100"
+                    onClick={() => this.submitFeedback(4) }
+                  >
+                    <FontAwesomeIcon icon={faSmile} size="3x" />
+                    <div className="btn-label ml-4">Comfortable</div>
+                  </button>
+                </div>
+              </td>
+              <td className="p-0 pt-1"><div className="description">You could read this quite easily, with no real slow-down.</div></td>
+            </tr>
+            <tr>            
+              <td className="p-2">
+                <div className="d-flex">
+                  <button
+                    className="btn btn-dark mb-2 text-left d-flex align-items-center w-100"
+                    onClick={() => this.submitFeedback(3) }
+                  >
+                    <FontAwesomeIcon icon={faMeh} size="3x" />
+                    <div className="btn-label ml-4">Readable with effort</div>
+                  </button>
+                </div>
+              </td>
+              <td className="p-0 pt-1"><div className="description">The additional effort may be subtle. Note that this slow-down is sometimes intended in everyday designs to de-emphasize secondary text.</div></td>
+            </tr>
+            <tr>
+              <td className="p-2">
+                <div className="d-flex">
+                  <button
+                    className="btn btn-dark mb-2 text-left d-flex align-items-center w-100"
+                    onClick={() => this.submitFeedback(2) }
+                  >
+                    <FontAwesomeIcon icon={faFrown} size="3x" />
+                    <div className="btn-label ml-4">Too much effort</div>
+                  </button>
+                </div>
+              </td>
+              <td className="p-0 pt-1"><div className="description">You feel you shouldn’t have to work this hard to read anything. De-emphasis gone too far.</div></td>
+            </tr>
+            <tr>
+              <td className="px-2 pt-2 pb-0">
+                <div className="d-flex">
+                  <button
+                    className="btn btn-dark text-left d-flex align-items-center w-100"
+                    onClick={() => this.submitFeedback(1) }
+                  >
+                    <FontAwesomeIcon icon={faAngry} size="3x" />
+                    <div className="btn-label ml-4">Illegible</div>
+                  </button>
+                </div>
+              </td>
+              <td className="p-0 pt-1"><div className="description">Really can’t read it at all, or fear you might not get parts of it.</div></td>
+            </tr>
+          </tbody>
+        </table>
+
       </div>
     );
   }
