@@ -26,7 +26,7 @@ class App extends React.Component {
     this.state = {
       user: undefined,
       currentTest: 0,
-      totalColors: 5,
+      totalColors: 50,
       totalTests: 0,
       colorMap: [],
     };
