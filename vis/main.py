@@ -3,14 +3,14 @@ import plotly.graph_objects as go
 import psycopg2 as pg
 import colorsys
 import collections
-
+import os
 
 def connect_to_db():
     connection = pg.connect(host="ec2-184-72-235-159.compute-1.amazonaws.com",
                             database="d1aih0igo359na",
                             user="tccnckmtjefvaf",
                             port="5432",
-                            password="")
+                            password=os.environ['DB_PASSWORD'])
     return connection
 
 
