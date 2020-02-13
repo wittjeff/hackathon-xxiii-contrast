@@ -51,10 +51,10 @@ fig = make_subplots(rows=1, cols=2,
 marker_size = 3
 
 black_fig = go.Scatter3d(x=hue_black, y=sat_black, z=lum_black, mode='markers',
-                         marker=dict(size=marker_size, color=rating_black,colorscale='Viridis',))
+                         marker=dict(size=marker_size, color=rating_black,colorscale='Magma',))
 
 white_fig = go.Scatter3d(x=hue_white, y=sat_white, z=lum_white, mode='markers',
-                         marker=dict(size=marker_size, color=rating_white,colorscale='Viridis',
+                         marker=dict(size=marker_size, color=rating_white,colorscale='Magma',
                          showscale=True, colorbar={"thickness": 15, "len": 0.5, "x": 1, "y": 0.6, }))
 
 fig.add_trace(black_fig,row=1,col=1)
