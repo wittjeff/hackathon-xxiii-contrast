@@ -38,7 +38,7 @@ class App extends React.Component {
 
   handleTestSubmission(value) {
     console.log(`handleTestSubmission: ${value}`);
-    axios.post("http://localhost:5000/api", {
+    axios.post("https://hackathon-xxiii-contrast-back.herokuapp.com/api", {
       user: this.state.user,
       test: this.state.currentTest,
       result: value
