@@ -22,7 +22,7 @@ white_data_points = []
 score_by_text_color_by_background_color = collections.defaultdict(lambda: {'black': [], 'white': []})
 
 for row in cursor.fetchall():
-    hls = colorsys.rgb_to_hls(row[0],row[1],row[2])
+    hls = colorsys.rgb_to_hls(row[0]/255.0,row[1]/255.0,row[2]/255.0)
     black_text = row[4] == 0
     data_points = black_data_points if black_text else white_data_points
     data_points.append({'hue': hls[0], 'lum': hls[1], 'sat': hls[2], 'rating': row[3]})
@@ -45,22 +45,23 @@ rating_white = [obj['rating'] for obj in white_data_points]
 
 fig = make_subplots(rows=1, cols=2,
                     specs=[[{"type": "scene"}, {"type": "scene"}]],
-                    subplot_titles=("White Text", "Black Text"),
+                    subplot_titles=("Black Text", "White Text"),
                     horizontal_spacing=0.01)
 
+marker_size = 3
 
 black_fig = go.Scatter3d(x=hue_black, y=sat_black, z=lum_black, mode='markers',
-                         marker=dict(size=5,color=rating_black,colorscale='Viridis',))
+                         marker=dict(size=marker_size, color=rating_black,colorscale='Viridis',))
 
 white_fig = go.Scatter3d(x=hue_white, y=sat_white, z=lum_white, mode='markers',
-                         marker=dict(size=5,color=rating_white,colorscale='Viridis',
+                         marker=dict(size=marker_size, color=rating_white,colorscale='Viridis',
                          showscale=True, colorbar={"thickness": 15, "len": 0.5, "x": 1, "y": 0.6, }))
 
 fig.add_trace(black_fig,row=1,col=1)
 fig.add_trace(white_fig,row=1,col=2)
 
-fig.update_layout(scene={'xaxis_title':'Hue','yaxis_title':'Saturation', 'zaxis_title':'Luminescence'}, showlegend=False)
-fig.update_layout(scene2={'xaxis_title':'Hue','yaxis_title':'Saturation', 'zaxis_title':'Luminescence'}, showlegend=False)
+fig.update_layout(scene={'xaxis_title':'Hue','yaxis_title':'Saturation', 'zaxis_title':'Luminance'}, showlegend=False)
+fig.update_layout(scene2={'xaxis_title':'Hue','yaxis_title':'Saturation', 'zaxis_title':'Luminance'}, showlegend=False)
 
 fig.show()
 cursor.close()
