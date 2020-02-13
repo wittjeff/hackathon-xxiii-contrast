@@ -1,0 +1,2 @@
+plotly                     # 3D plotting
+pandas                     # data frames
